@@ -74,7 +74,7 @@ pipeline {
         stage('Update Image Tag in GitOps') {
             steps {
                 checkout scmGit(
-                    branches: [[name: '*/master']],
+                    branches: [[name: '*/main']],
                     extensions: [],
                     userRemoteConfigs: [[credentialsId: 'git-ssh', url: 'git@github.com:misbah06uddin/deployment-folder.git']]
                 )
@@ -84,7 +84,7 @@ pipeline {
                         sed -i "s/image: .*/image: misbah06uddin\\/restaurant-listing-service:${VERSION}/" aws/restaurant-manifest.yml
                     '''
 
-                    sh 'git checkout master'
+                    sh 'git checkout main'
                     sh 'git add .'
                     sh 'git commit -m "Update image tag"'
 
